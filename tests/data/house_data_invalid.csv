@@ -1,0 +1,6 @@
+price,sqft,bedrooms,bathrooms,location,year_built,condition
+495000,1527,2,1.5,Suburb,1956,Good
+500000,2526,3,2.5,Downtown,1998,Excellent
+505000,1622,2,1.5,Rural,1975,Fair
+490000,1800,3,2.0,Urban,2030,Good
+510000,1900,2,6.0,Suburb,1990,Good

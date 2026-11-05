@@ -65,5 +65,14 @@ def check_contract(df: pd.DataFrame, require_target: bool = True) -> list[dict]:
     for col, allowed in CATEGORIES.items():
         add("category", col, df[col].notnull() & ~df[col].isin(allowed), f"fuera de {sorted(allowed)}")
 
+    # Regla: una casa no puede haberse construido en el futuro
+    year = pd.to_numeric(df["year_built"], errors="coerce")
+    add("future", "year_built", year > datetime.now().year, "año de construcción en el futuro")
+
+    # Regla entre columnas: no puede haber muchos más baños que dormitorios
+    beds = pd.to_numeric(df["bedrooms"], errors="coerce")
+    baths = pd.to_numeric(df["bathrooms"], errors="coerce")
+    add("consistency", "bathrooms", baths > beds + 2, "más baños que dormitorios + 2")
+
     add("duplicates", "*", df.duplicated(), "filas duplicadas")
     return violations
